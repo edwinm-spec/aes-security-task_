@@ -90,40 +90,40 @@
     {
       "id": "G1",
       "filename": "aes.py",
-      "line_ranges": [[1, 10]],
-      "inference": "mix_single_column performs rotation - core vulnerability",
+      "line_ranges": [[1, 20]],
+      "inference": "mix_single_column and mix_columns definitions - rotation vulnerability",
       "rubric_ids": ["GR1", "GR2", "GR9", "GR11"],
       "weight": 25
     },
     {
       "id": "G2",
       "filename": "aes.py",
-      "line_ranges": [[35, 45]],
-      "inference": "mix_columns called in encryption loop",
+      "line_ranges": [[120, 160]],
+      "inference": "encrypt_block function showing mix_columns called in round loop",
       "rubric_ids": ["GR4", "GR6", "GR8", "GR11"],
       "weight": 20
     },
     {
       "id": "G3",
       "filename": "aes.py",
-      "line_ranges": [[50, 65]],
-      "inference": "encrypt_block shows mix_columns per round",
+      "line_ranges": [[140, 155]],
+      "inference": "for loop calling mix_columns in each encryption round",
       "rubric_ids": ["GR4", "GR6", "GR11"],
       "weight": 20
     },
     {
       "id": "G4",
       "filename": "aes.py",
-      "line_ranges": [[15, 25]],
-      "inference": "diffusion chain incomplete without proper MixColumns",
+      "line_ranges": [[100, 130]],
+      "inference": "encrypt method calling encrypt_block - full path",
       "rubric_ids": ["GR3", "GR7", "GR11"],
       "weight": 20
     },
     {
       "id": "G5",
       "filename": "aes.py",
-      "line_ranges": [[70, 85]],
-      "inference": "full encryption path shows security reduction",
+      "line_ranges": [[170, 200]],
+      "inference": "complete encryption flow showing security impact",
       "rubric_ids": ["GR5", "GR10", "GR7", "GR11"],
       "weight": 15
     }
