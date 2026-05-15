@@ -4,7 +4,7 @@
   "execution_environment": {
     "image": "python:3.11-slim",
     "repo_url": "https://github.com/edwinm-spec/aes-security-task_",
-    "repo_commit": "de5a5cd53b2866ccab74c46b10c413d74d275b36",
+    "repo_commit": "1f49282",
     "setup_commands": []
   },
   "task_type": "security",
