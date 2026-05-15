@@ -1,18 +1,28 @@
 {
-  "task_id": "aes__security__001",
-  "prompt": "Analyze the provided AES encryption implementation. Focus specifically on the mix_columns and mix_single_column functions.\n\nThe Code:\n\ndef mix_single_column(a):\n    a[0], a[1], a[2], a[3] = a[1], a[2], a[3], a[0]\n\ndef mix_columns(s):\n    for i in range(4):\n        mix_single_column(s[i])\n\nYour task:\n1. Analyze how mix_columns differs from standard AES\n2. Explain what security properties are broken\n3. Describe how an attacker could exploit this weakness\n4. Trace the code path from encrypt_block through mix_columns\n5. Explain why proper MixColumns requires Galois Field multiplication\n\nExpected output structure:\n- Vulnerability Location\n- Security Impact\n- Attack Vector\n- Code Path Trace\n- Proper Implementation\n\nNote: You are analyzing code, not writing new code.",
+  "task_id": "aes__security_vo5a__001",
+  "prompt": "Analyze the provided AES encryption implementation. Focus specifically on the mix_columns and mix_single_column functions.\\n\\nThe Code:\\n\\ndef mix_single_column(a):\\n    a[0], a[1], a[2], a[3] = a[1], a[2], a[3], a[0]\\n\\ndef mix_columns(s):\\n    for i in range(4):\\n        mix_single_column(s[i])\\n\\nYour task:\\n1. Analyze how mix_columns differs from standard AES\\n2. Explain what security properties are broken\\n3. Describe how an attacker could exploit this weakness\\n4. Trace the code path from encrypt_block through mix_columns\\n5. Explain why proper MixColumns requires Galois Field multiplication\\n\\nExpected output structure:\\n- Vulnerability Location\\n- Security Impact\\n- Attack Vector\\n- Code Path Trace\\n- Proper Implementation\\n\\nNote: You are analyzing code, not writing new code.\"",
   "execution_environment": {
     "image": "python:3.11-slim",
-    "repo_url": "https://github.com/boppreh/aes",
-    "repo_commit": "main"
+    "repo_url": "https://github.com/edwinm-spec/aes-security-task_",
+    "repo_commit": "de5a5cd53b2866ccab74c46b10c413d74d275b36",
+    "setup_commands": []
   },
   "task_type": "security",
   "difficulty": "hard",
-  "max_steps": 25,
+  "max_steps": 30,
   "metadata": {
-    "priority_tools": ["read_file", "bash", "write_todos", "save_grounding"],
-    "expected_turns": 15,
-    "language": "python"
+    "priority_tools": [
+      "bash",
+      "write_todos",
+      "save_grounding"
+    ],
+    "expected_turns": 20,
+    "language": "python",
+    "thoroughness": "medium",
+    "system_prompt_extension": null
   },
-  "distractor_tools": ["web_search", "install_dependencies", "run_tests", "execute_code"]
+  "distractor_tools": [
+    "web_search",
+    "install_dependencies"
+  ]
 }
