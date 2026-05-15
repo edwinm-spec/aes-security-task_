@@ -12,111 +12,119 @@
       "criterion": "Identifies mix_single_column performs rotation",
       "verifier_type": "keyword_set",
       "expected": ["mix_single_column", "rotation", "circular shift"],
-      "weight": 9
+      "weight": 8
     },
     {
       "id": "GR2",
       "criterion": "Explains proper MixColumns requires Galois Field multiplication",
       "verifier_type": "keyword_set",
       "expected": ["Galois", "GF", "multiplication", "field"],
-      "weight": 11
+      "weight": 10
     },
     {
       "id": "GR3",
       "criterion": "Identifies loss of diffusion/avalanche effect",
       "verifier_type": "keyword_set",
       "expected": ["diffusion", "avalanche", "mixing"],
-      "weight": 9
+      "weight": 8
     },
     {
       "id": "GR4",
       "criterion": "Traces code path from encrypt_block through mix_columns",
       "verifier_type": "keyword_set",
       "expected": ["encrypt_block", "mix_columns", "round"],
-      "weight": 8
+      "weight": 7
     },
     {
       "id": "GR5",
       "criterion": "Mentions vulnerability to differential or linear cryptanalysis",
       "verifier_type": "keyword_set",
       "expected": ["differential", "linear", "cryptanalysis"],
-      "weight": 9
+      "weight": 8
     },
     {
       "id": "GR6",
       "criterion": "Correctly identifies which rounds call mix_columns",
-      "verifier_type": "contains",
-      "expected": "round",
-      "weight": 7
+      "verifier_type": "regex",
+      "expected": "rounds? [0-9]+|for i in range\\(1,",
+      "weight": 6
     },
     {
       "id": "GR7",
-      "criterion": "Mentions vulnerability affects all rounds",
-      "verifier_type": "contains",
-      "expected": "rounds",
-      "weight": 7
+      "criterion": "Provides coherent end-to-end security analysis",
+      "verifier_type": "llm_judge",
+      "expected": "The mix_single_column performs rotation instead of Galois Field multiplication, breaking diffusion and enabling cryptanalysis",
+      "context": "Pass if answer explains: (1) rotation vs proper GF multiplication, (2) why diffusion is lost, (3) what attacks become possible. Fail if analysis is superficial or incorrect.",
+      "weight": 12
     },
     {
       "id": "GR8",
-      "criterion": "References specific code functions or line numbers",
-      "verifier_type": "regex",
-      "expected": "mix_single_column|mix_columns|line",
-      "weight": 7
+      "criterion": "Mentions vulnerability affects all rounds",
+      "verifier_type": "contains",
+      "expected": "rounds",
+      "weight": 5
     },
     {
       "id": "GR9",
-      "criterion": "Explains attack consequences (key recovery, decryption)",
-      "verifier_type": "keyword_set",
-      "expected": ["key recovery", "decrypt", "ciphertext"],
-      "weight": 10
+      "criterion": "References specific code functions or line numbers",
+      "verifier_type": "regex",
+      "expected": "mix_single_column|mix_columns|line",
+      "weight": 6
     },
     {
       "id": "GR10",
+      "criterion": "Explains attack consequences (key recovery, decryption)",
+      "verifier_type": "keyword_set",
+      "expected": ["key recovery", "decrypt", "ciphertext"],
+      "weight": 8
+    },
+    {
+      "id": "GR11",
       "criterion": "Script validates complete security analysis",
       "verifier_type": "script",
       "expected": "scripts/verify_analysis.sh",
-      "weight": 13
+      "weight": 10
     }
   ],
   "groundings": [
     {
       "id": "G1",
       "filename": "aes.py",
-      "line_ranges": [[1, 20]],
-      "inference": "mix_single_column and mix_columns definitions - rotation vulnerability",
-      "rubric_ids": ["GR1", "GR2", "GR8", "GR10"],
+      "line_ranges": [[1, 10]],
+      "inference": "mix_single_column performs rotation - core vulnerability",
+      "rubric_ids": ["GR1", "GR2", "GR9", "GR11"],
       "weight": 25
     },
     {
       "id": "G2",
       "filename": "aes.py",
-      "line_ranges": [[120, 160]],
-      "inference": "encrypt_block function showing mix_columns called in round loop",
-      "rubric_ids": ["GR4", "GR6", "GR7", "GR10"],
+      "line_ranges": [[35, 45]],
+      "inference": "mix_columns called in encryption loop",
+      "rubric_ids": ["GR4", "GR6", "GR8", "GR11"],
       "weight": 20
     },
     {
       "id": "G3",
       "filename": "aes.py",
-      "line_ranges": [[140, 155]],
-      "inference": "for loop calling mix_columns in each encryption round",
-      "rubric_ids": ["GR4", "GR6", "GR10"],
+      "line_ranges": [[50, 65]],
+      "inference": "encrypt_block shows mix_columns per round",
+      "rubric_ids": ["GR4", "GR6", "GR11"],
       "weight": 20
     },
     {
       "id": "G4",
       "filename": "aes.py",
-      "line_ranges": [[100, 130]],
-      "inference": "encrypt method calling encrypt_block - full path",
-      "rubric_ids": ["GR3", "GR10"],
+      "line_ranges": [[15, 25]],
+      "inference": "diffusion chain incomplete without proper MixColumns",
+      "rubric_ids": ["GR3", "GR7", "GR11"],
       "weight": 20
     },
     {
       "id": "G5",
       "filename": "aes.py",
-      "line_ranges": [[170, 200]],
-      "inference": "complete encryption flow showing security impact",
-      "rubric_ids": ["GR5", "GR9", "GR10"],
+      "line_ranges": [[70, 85]],
+      "inference": "full encryption path shows security reduction",
+      "rubric_ids": ["GR5", "GR10", "GR7", "GR11"],
       "weight": 15
     }
   ]
